@@ -73,4 +73,20 @@ public class RWLockList extends SortList {
         }
     }
 
+    @Override
+    public int getSize() {
+        try {
+            lock.readLock().lock();
+            int count = 0;
+            Entry curr = head.next;  // Skip MIN_VALUE sentinel
+            while (curr != null && !curr.object.equals(Integer.MAX_VALUE)) {
+                count++;
+                curr = curr.next;
+            }
+            return count;
+        } finally {
+            lock.readLock().unlock();
+        }
+    }
+
 }

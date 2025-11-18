@@ -53,4 +53,14 @@ public class SyncList extends SortList {
             return false;
         }
     }
+    @Override
+    public synchronized int getSize() {
+        int count = 0;
+        Entry curr = head.next;
+        while (curr != null && !curr.object.equals(Integer.MAX_VALUE)) {
+            count++;
+            curr = curr.next;
+        }
+        return count;
+    }
 }

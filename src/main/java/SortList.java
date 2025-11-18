@@ -10,6 +10,7 @@ public abstract class SortList {
     public  abstract  boolean add(Integer obj);
     public  abstract  boolean remove(Integer obj);
     public  abstract  boolean contain(Integer obj);
+    public abstract int getSize();
 
     public void printList(){
         Entry curr = this.head;
