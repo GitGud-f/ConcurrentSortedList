@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3f4b2924-17d7-4794-bacf-d51c4f0be8bb" name="Changes" comment="Concurrent Sorted Linked List Implementations">
-      <change afterPath="$PROJECT_DIR$/src/test/java/BenchmarkDriver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="3f4b2924-17d7-4794-bacf-d51c4f0be8bb" name="Changes" comment="Concurrent Sorted Linked List Implementations" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
