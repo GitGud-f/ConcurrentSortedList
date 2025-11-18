@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="3f4b2924-17d7-4794-bacf-d51c4f0be8bb" name="Changes" comment="Concurrent Sorted Linked List Implementations">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/SyncListTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SyncListTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Entry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Entry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RWLockList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RWLockList.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
