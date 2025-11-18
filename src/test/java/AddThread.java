@@ -6,7 +6,9 @@ public class AddThread extends TestThread implements Runnable {
     @Override
     public void run() {
         for (int i = 0; i < nums.length; i++) {
-            list.add(nums[i]);
+            if (list.add(nums[i])) {
+                successCount++;
+            }
         }
     }
 }
