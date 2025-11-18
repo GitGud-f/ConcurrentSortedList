@@ -5,6 +5,8 @@ import java.util.List;
 
 public class SyncListTest extends TestCase {
 
+    private final int randomNumsRange = 80_000;
+
     public void testAddList(){
 
         SyncList syncList = new SyncList();
@@ -20,34 +22,46 @@ public class SyncListTest extends TestCase {
     }
 
     public void testRandSeq() {
-        RandomSeq randomSeq = new RandomSeq(0, 80_000);
+        RandomSeq randomSeq = new RandomSeq(0, randomNumsRange);
         for (int i = 0; i < 10; i++) {
             System.out.print(randomSeq.next() + " ");
         }
     }
 
-    int randLen = 20_000;
-   public void testHelp(SortList list, String label) {
-        RandomSeq seq = new RandomSeq(0, 80_000);
-        List<Thread> addThreads = new ArrayList<>();
-        List<Thread> containThreads = new ArrayList<>();
-        List<Thread> removeThreads = new ArrayList<>();
-        for (int i = 0; i < 8; i++) {
-            AddThread addThread = new AddThread(seq, randLen / 8, list);
-            ContainThread containThread = new ContainThread(seq, randLen / 8, list);
-            RemoveThread removeThread = new RemoveThread(seq, randLen / 8, list);
-            Thread threadA = new Thread(addThread);
-            addThreads.add(threadA);
-            Thread threadC = new Thread(containThread);
-            containThreads.add(threadC);
-            Thread threadR = new Thread(removeThread);
-            removeThreads.add(threadR);
-        }
+   public void benchmarkHelp(SortList list, String label) {
+        RandomSeq seq = new RandomSeq(0, randomNumsRange);
+        int numAddThreads = 7;
+       int randLen = 40_501;
+       int addBase = randLen / numAddThreads;
+        int addRem = randLen % numAddThreads;
+
+       List<AddThread> addRunnables = new ArrayList<>();
+       List<Thread> addThreads = new ArrayList<>();
+       for (int i = 0; i < numAddThreads; i++) {
+           int part = addBase + (i < addRem ? 1 : 0);
+           AddThread addThread = new AddThread(seq, part, list);
+           addRunnables.add(addThread);
+           addThreads.add(new Thread(addThread));
+       }
+//        List<Thread> addThreads = new ArrayList<>();
+//        List<Thread> containThreads = new ArrayList<>();
+//        List<Thread> removeThreads = new ArrayList<>();
+//        for (int i = 0; i < 8; i++) {
+//            AddThread addThread = new AddThread(seq, randLen / 8, list);
+//            ContainThread containThread = new ContainThread(seq, randLen / 8, list);
+//            RemoveThread removeThread = new RemoveThread(seq, randLen / 8, list);
+//            Thread threadA = new Thread(addThread);
+//            addThreads.add(threadA);
+//            Thread threadC = new Thread(containThread);
+//            containThreads.add(threadC);
+//            Thread threadR = new Thread(removeThread);
+//            removeThreads.add(threadR);
+//        }
 
         long startA = System.currentTimeMillis();
 
-        addThreads.stream().forEach(e -> e.start() );
-        addThreads.stream().forEach(e -> {
+        addThreads.forEach(Thread::start);
+        addThreads.forEach(e -> {
             try {
                 e.join();
             } catch (InterruptedException ex) {
@@ -57,11 +71,24 @@ public class SyncListTest extends TestCase {
         long endA = System.currentTimeMillis() - startA;
 
         System.out.println("ADD "+label+" execution task: "+endA+" ms");
+        System.out.println("List length after add " + list.getSize());
 
+
+       int numContainThreads = 8;
+       int containBase = randLen / numContainThreads;
+       int containRem = randLen % numContainThreads;
+       List<ContainThread> containRunnables = new ArrayList<>();
+       List<Thread> containThreads = new ArrayList<>();
+       for (int i = 0; i < numContainThreads; i++) {
+           int part = containBase + (i < containRem ? 1 : 0);
+           ContainThread containThread = new ContainThread(seq, part, list);
+           containRunnables.add(containThread);
+           containThreads.add(new Thread(containThread));
+       }
        long startC = System.currentTimeMillis();
 
-       containThreads.stream().forEach(e -> e.start() );
-       containThreads.stream().forEach(e -> {
+       containThreads.forEach(Thread::start);
+       containThreads.forEach(e -> {
            try {
                e.join();
            } catch (InterruptedException ex) {
@@ -69,12 +96,27 @@ public class SyncListTest extends TestCase {
            }
        });
        long endC = System.currentTimeMillis() - startC;
-       System.out.println("Contain "+label+" execution task: "+endC+" ms");
+       System.out.println("Contain" + label + " execution task: " + endC + " ms");
+       long totalSuccessFound = containRunnables.stream().mapToInt(ContainThread::getSuccessCount).sum();
+       long totalFailuresFound = randLen - totalSuccessFound;
+       System.out.println("Total number of successes found: " + totalSuccessFound + ", failures found:" + totalFailuresFound);
+
+       int numRemoveThreads = 8;
+       int removeBase = randLen / numRemoveThreads;
+       int removeRem = randLen % numRemoveThreads;
+       List<RemoveThread> removeRunnables = new ArrayList<>();
+       List<Thread> removeThreads = new ArrayList<>();
+       for (int i = 0; i < numRemoveThreads; i++) {
+           int part = removeBase + (i < removeRem ? 1 : 0);
+           RemoveThread removeThread = new RemoveThread(seq, part, list);
+           removeRunnables.add(removeThread);
+           removeThreads.add(new Thread(removeThread));
+       }
 
        long startR = System.currentTimeMillis();
 
-       removeThreads.stream().forEach(e -> e.start() );
-       removeThreads.stream().forEach(e -> {
+       removeThreads.forEach(Thread::start);
+       removeThreads.forEach(e -> {
            try {
                e.join();
            } catch (InterruptedException ex) {
@@ -84,17 +126,21 @@ public class SyncListTest extends TestCase {
        long endR = System.currentTimeMillis() - startR;
 
 
-       System.out.println("Remove "+label+" execution task: "+endR+" ms");
+       System.out.println("Remove" + label + " execution task: " + endR + " ms");
+       System.out.println("List length after remove " + list.getSize());
+       long totalSuccessRemoved = removeRunnables.stream().mapToInt(RemoveThread::getSuccessCount).sum();
+       long totalFailuresRemoved = randLen - totalSuccessRemoved;
+       System.out.println("Total number of successes removed: " + totalSuccessRemoved + ", failures removed: " + totalFailuresRemoved);
     }
 
     public void testRun(){
         SyncList syncList = new SyncList();
-        testHelp(syncList,"Synchronization");
+        benchmarkHelp(syncList,"Synchronization");
         System.out.println("==============");
         RWLockList rwLockList = new RWLockList();
-        testHelp(rwLockList, "RWLock");
+        benchmarkHelp(rwLockList, "RWLock");
         System.out.println("==============");
         LockList list = new LockList();
-        testHelp(list,"Lock");
+        benchmarkHelp(list,"Lock");
     }
 }
