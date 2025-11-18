@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3f4b2924-17d7-4794-bacf-d51c4f0be8bb" name="Changes" comment="Concurrent Sorted Linked List Implementations">
+      <change afterPath="$PROJECT_DIR$/src/test/java/BenchmarkDriver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.MD" beforeDir="false" afterPath="$PROJECT_DIR$/README.MD" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,13 +40,14 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.BenchmarkDriver.executor": "Run",
     "JUnit.SyncListTest.testRun.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/mayasalkhateeb/Desktop/HIAST/ParallelComputing/Lab/Session02/Homework/concurrentsortedlinkedlist",
     "project.structure.last.edited": "Modules",
@@ -54,7 +55,14 @@
     "project.structure.side.proportion": "0.0"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.SyncListTest.testRun">
+  <component name="RunManager" selected="Application.BenchmarkDriver">
+    <configuration name="BenchmarkDriver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="BenchmarkDriver" />
+      <module name="SortLinkedList" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="SyncListTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SortLinkedList" />
       <option name="PACKAGE_NAME" value="" />
@@ -96,6 +104,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.BenchmarkDriver" />
         <item itemvalue="JUnit.SyncListTest.testRun" />
         <item itemvalue="JUnit.SyncListTest.testRandSeq" />
         <item itemvalue="JUnit.SyncListTest" />
