@@ -30,7 +30,7 @@ The goal is to demonstrate and benchmark different locking strategies to underst
 ### Installation
 1. Clone the repository:
 ```bash
-  git clone https://github.com/k3rnel-paN1c5/ConcurrentSortedList.git
+  git clone https://github.com/GitGud-f/ConcurrentSortedList.git
 ```
 2. Navigate to the project directory:
 ``` bash
